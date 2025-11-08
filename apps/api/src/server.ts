@@ -23,9 +23,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // --- Routes ---
 // Health check route
+import authRoutes from './routes/auth'; // <--- ADD THIS IMPORT
+
+// Health check route
 app.get('/', (req: Request, res: Response) => {
   res.status(200).json({ message: 'API is healthy' });
 });
+
 
 // We will add more routes here later (e.g., app.use('/api/auth', authRoutes))
 
