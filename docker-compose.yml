@@ -1,0 +1,64 @@
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: skill-builder-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: skill-builder-api
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./apps/api/.env
+    depends_on:
+      mongo:
+        condition: service_healthy
+    volumes:
+      - ./apps/api/src:/app/src
+    command: pnpm run dev
+
+  reco:
+    build:
+      context: ./apps/reco
+      dockerfile: Dockerfile
+    container_name: skill-builder-reco
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/reco/app:/app
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: skill-builder-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./apps/web/.env
+    depends_on:
+      - api
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules # Anonymize node_modules to use the one in the container
+      - /app/.next
+    command: pnpm run dev
+
+volumes:
+  mongo-data:
