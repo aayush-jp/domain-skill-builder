@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express'; // Request is no longer needed from here
 import jwt from 'jsonwebtoken';
+import { AuthenticatedRequest } from '../interfaces'; // <-- ADD THIS IMPORT
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
 
@@ -8,7 +9,8 @@ interface JwtPayload {
   role: string;
 }
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+// Use AuthenticatedRequest here instead of Request
+export const authMiddleware = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -20,7 +22,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
     
-    // Attach user payload to the request object
+    // This will now be type-safe
     req.user = {
       userId: decoded.userId,
       role: decoded.role,

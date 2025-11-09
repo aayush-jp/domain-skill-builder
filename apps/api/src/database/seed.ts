@@ -81,30 +81,30 @@ const seedDatabase = async () => {
 
     // --- Seed Quizzes ---
     console.log('Seeding quizzes...');
-    const quizzes = [
-      {
-        domainSlug: 'data-analyst',
-        title: 'SQL Basics Quiz',
-        difficulty: 'easy',
-        questions: [
-          { qid: 'q1', stem: 'Which SQL statement is used to extract data from a database?', options: ['GET', 'SELECT', 'EXTRACT', 'OPEN'], answerIndex: 1 },
-          { qid: 'q2', stem: 'Which SQL keyword is used to sort the result-set?', options: ['ORDER BY', 'SORT', 'ORDER', 'SORT BY'], answerIndex: 0 },
-          { qid: 'q3', stem: 'Which clause is used to filter records?', options: ['FILTER', 'WHERE', 'SELECT', 'FROM'], answerIndex: 1 },
-          { qid: 'q4', stem: 'What does `JOIN` do?', options: ['Combine rows from two or more tables', 'Create a new table', 'Delete a table', 'Update a row'], answerIndex: 0 },
-        ],
-      },
-       {
-        domainSlug: 'full-stack-engineer',
-        title: 'JavaScript Fundamentals Quiz',
-        difficulty: 'easy',
-        questions: [
-          { qid: 'q1', stem: 'Which keyword is used to declare a variable that cannot be reassigned?', options: ['let', 'var', 'const', 'static'], answerIndex: 2 },
-          { qid: 'q2', stem: 'What is the correct way to write an arrow function?', options: ['() => {}', 'function() {}', '=> {}', 'func() => {}'], answerIndex: 0 },
-          { qid: 'q3', stem: 'What does `===` check for?', options: ['Value only', 'Type only', 'Value and type', 'Assignment'], answerIndex: 2 },
-          { qid: 'q4', stem: 'Which method is used to add an element to the end of an array?', options: ['array.add()', 'array.push()', 'array.append()', 'array.end()'], answerIndex: 1 },
-        ],
-      },
-    ];
+const quizzes = [
+  {
+    domainSlug: 'data-analyst',
+    title: 'SQL Basics Quiz',
+    difficulty: 'easy',
+    questions: [
+      { qid: 'q1', stem: 'Which SQL statement is used to extract data from a database?', options: ['GET', 'SELECT', 'EXTRACT', 'OPEN'], answerIndex: 1, topicKey: 'sql-basics' },
+      { qid: 'q2', stem: 'Which SQL keyword is used to sort the result-set?', options: ['ORDER BY', 'SORT', 'ORDER', 'SORT BY'], answerIndex: 0, topicKey: 'sql-basics' },
+      { qid: 'q3', stem: 'Which clause is used to filter records?', options: ['FILTER', 'WHERE', 'SELECT', 'FROM'], answerIndex: 1, topicKey: 'sql-basics' },
+      { qid: 'q4', stem: 'What does `JOIN` do?', options: ['Combine rows from two or more tables', 'Create a new table', 'Delete a table', 'Update a row'], answerIndex: 0, topicKey: 'sql-basics' },
+    ],
+  },
+   {
+    domainSlug: 'full-stack-engineer',
+    title: 'JavaScript Fundamentals Quiz',
+    difficulty: 'easy',
+    questions: [
+      { qid: 'q1', stem: 'Which keyword is used to declare a variable that cannot be reassigned?', options: ['let', 'var', 'const', 'static'], answerIndex: 2, topicKey: 'javascript' },
+      { qid: 'q2', stem: 'What is the correct way to write an arrow function?', options: ['() => {}', 'function() {}', '=> {}', 'func() => {}'], answerIndex: 0, topicKey: 'javascript' },
+      { qid: 'q3', stem: 'What does `===` check for?', options: ['Value only', 'Type only', 'Value and type', 'Assignment'], answerIndex: 2, topicKey: 'javascript' },
+      { qid: 'q4', stem: 'Which method is used to add an element to the end of an array?', options: ['array.add()', 'array.push()', 'array.append()', 'array.end()'], answerIndex: 1, topicKey: 'javascript' },
+    ],
+  },
+];
     await Quiz.insertMany(quizzes);
     console.log('Seeded 2 quizzes.');
 

@@ -5,6 +5,7 @@ interface IQuestion {
   stem: string;
   options: string[];
   answerIndex: number;
+   topicKey: string;
 }
 
 export interface IQuiz extends Document {
@@ -22,6 +23,7 @@ const QuizSchema = new Schema<IQuiz>({
     stem: { type: String, required: true },
     options: [{ type: String, required: true }],
     answerIndex: { type: Number, required: true },
+    topicKey: { type: String, required: true },
   }],
   difficulty: { type: String, enum: ['easy', 'medium', 'hard'], default: 'easy' },
 });

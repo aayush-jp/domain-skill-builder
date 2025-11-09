@@ -2,6 +2,9 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import domainRoutes from './routes/domains';
+import quizRoutes from './routes/quizzes'; 
+import attemptRoutes from './routes/attempts';
 
 dotenv.config();
 
@@ -23,12 +26,16 @@ app.use(express.urlencoded({ extended: true }));
 
 // --- Routes ---
 // Health check route
-import authRoutes from './routes/auth'; // <--- ADD THIS IMPORT
+import authRoutes from './routes/auth'; 
 
 // Health check route
 app.get('/', (req: Request, res: Response) => {
   res.status(200).json({ message: 'API is healthy' });
 });
+
+app.use('/api/domains', domainRoutes);
+app.use('/api/quizzes', quizRoutes); 
+app.use('/api/attempts', attemptRoutes);
 
 
 // We will add more routes here later (e.g., app.use('/api/auth', authRoutes))
