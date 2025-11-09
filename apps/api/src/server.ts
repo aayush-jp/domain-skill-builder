@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/skillbuilder';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://mongo:27017/skillbuilder';
 
 // --- Database Connection ---
 mongoose.connect(MONGO_URI)
@@ -32,7 +32,7 @@ app.get('/', (req: Request, res: Response) => {
 
 
 // We will add more routes here later (e.g., app.use('/api/auth', authRoutes))
-
+app.use('/api/auth', authRoutes);
 
 // --- Server Startup ---
 app.listen(PORT, () => {
